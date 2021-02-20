@@ -1,0 +1,16 @@
+.menu {
+    display: flex;
+    list-style: none;
+    width: 400px;
+    justify-content: space-evenly;
+}
+
+.menu__item a {
+    text-decoration: none;
+    color: #000;
+    transition: .2s;
+}
+
+.menu__item a:hover {
+    color: #f00
+}
