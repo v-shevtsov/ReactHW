@@ -1,0 +1,12 @@
+.header {
+    background-color: #282c35;
+    padding-top: 45px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    color: #fff;
+}
+
+.header__welcome {
+    margin: 0;
+}

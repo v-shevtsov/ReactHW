@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './Todo.css';
+import './TodoList.css';
 
-class Todo extends Component {
+class TodoList extends Component {
     constructor(props) {
         super(props);
         this.todos = props.todos;
@@ -24,4 +24,4 @@ class Todo extends Component {
     }
 }
 
-export default Todo;
+export default TodoList;

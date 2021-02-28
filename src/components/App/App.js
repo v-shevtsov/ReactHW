@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Todo from "../Todo/Todo";
+import TodoList from "../TodoList/TodoList";
+import Header from "../Header/Header";
 
 class App extends Component {
     state = {
@@ -36,9 +37,10 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <Todo todos={this.state.todos}/>
-                </header>
+                <Header />
+                <main className="App-header">
+                    <TodoList todos={this.state.todos}/>
+                </main>
             </div>
         );
     }
