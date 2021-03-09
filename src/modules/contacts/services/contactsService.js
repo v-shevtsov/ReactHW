@@ -1,10 +1,10 @@
 import { CONTACT_URL } from "../constants";
 
-export function getTodos() {
+export function getContacts() {
     return fetch(CONTACT_URL).then(response => response.json());
 }
 
-export function updateTodo(newItem) {
+export function updateContact(newItem) {
     return fetch(CONTACT_URL + newItem.id, {
         method: 'PUT',
         body: JSON.stringify(newItem),
@@ -14,13 +14,13 @@ export function updateTodo(newItem) {
     }).then(response => response.json());
 }
 
-export function deleteTodo(id) {
+export function deleteContact(id) {
     return fetch(CONTACT_URL + id, {
         method: 'DELETE'
     }).then(response => response.json());
 }
 
-export function createTodo(newItem) {
+export function createContact(newItem) {
     return fetch(CONTACT_URL, {
         method: 'POST',
         body: JSON.stringify(newItem),

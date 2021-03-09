@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import { Td, Tr } from "@chakra-ui/react"
+import { Icon } from "@chakra-ui/react"
+import { CloseIcon } from '@chakra-ui/icons'
 
 export default class ContactListItem extends Component {
-    onItemClick = (e) => {
-        this.props.onToggle(this.props.item.id);
-    }
-
     onDeleteItemClick = (e) => {
-        e.stopPropagation();
-
         this.props.onDelete(this.props.item.id);
     }
 
@@ -20,7 +16,13 @@ export default class ContactListItem extends Component {
                 <Td>{item.name}</Td>
                 <Td>{item.surname}</Td>
                 <Td>{item.phone}</Td>
-                <Td onClick={this.onDeleteItemClick}>X</Td>
+                <Td>
+                    <Icon
+                        style={{cursor: 'pointer'}}
+                        as={CloseIcon}
+                        onClick={this.onDeleteItemClick}
+                    />
+                </Td>
             </Tr>
         );
     }

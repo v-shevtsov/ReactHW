@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ContactForm from "./ContactForm";
+import { Button } from "@chakra-ui/react";
 
 class ShowForm extends Component {
     state = {
@@ -13,7 +14,13 @@ class ShowForm extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.toggleForm}>{this.state.show ? 'Hide' : 'Show'} form</button>
+                <Button
+                    onClick={this.toggleForm}
+                    colorScheme="blue"
+                    size="sm"
+                >
+                    {this.state.show ? 'Hide' : 'Show'} form
+                </Button>
                 {
                     this.state.show
                         ? <ContactForm

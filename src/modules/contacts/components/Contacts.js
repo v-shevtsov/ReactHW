@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ContactTable from "./ContactTable";
-import { createTodo, deleteTodo, getTodos, updateTodo } from "../services/contactsService";
+import { createContact, deleteContact, getContacts, updateContact } from "../services/contactsService";
 import ShowForm from "./ShowForm";
 
 
@@ -9,14 +9,8 @@ class Contacts extends Component {
         list: []
     }
 
-    // async componentDidMount() {
-    //     const response = await fetch(CONTACT_URL);
-    //     const list = await response.json();
-    //     this.setState({list})
-    // }
-
     componentDidMount() {
-        getTodos().then(list => this.setState({list}))
+        getContacts().then(list => this.setState({list}))
 
     }
 
@@ -24,7 +18,7 @@ class Contacts extends Component {
         const item = this.state.list.find(item => item.id === id);
         const newItem = {...item, completed: !item.completed};
 
-        updateTodo(newItem).then(() => {
+        updateContact(newItem).then(() => {
             this.setState({
                 list: this.state.list.map(item => item.id !== id ? item : newItem)
             })
@@ -32,7 +26,7 @@ class Contacts extends Component {
     }
 
     deleteItem = (id) => {
-        deleteTodo(id);
+        deleteContact(id);
 
         this.setState({
             list: this.state.list.filter(item => item.id !== id)
@@ -40,7 +34,7 @@ class Contacts extends Component {
     }
 
     createItem = (newItem) => {
-        createTodo(newItem).then(data => {
+        createContact(newItem).then(data => {
             this.setState({list: [...this.state.list, data]})
         })
 
