@@ -19,7 +19,6 @@ class ContactTable extends Component {
                         <ContactListItem
                             key={item.id}
                             item={item}
-                            onToggle={this.props.onToggle}
                             onDelete={this.props.onDelete}/>
                     ))}
                 </Tbody>

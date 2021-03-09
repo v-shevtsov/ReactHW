@@ -3,7 +3,6 @@ import ContactTable from "./ContactTable";
 import { createContact, deleteContact, getContacts, updateContact } from "../services/contactsService";
 import ShowForm from "./ShowForm";
 
-
 class Contacts extends Component {
     state = {
         list: []
@@ -12,17 +11,6 @@ class Contacts extends Component {
     componentDidMount() {
         getContacts().then(list => this.setState({list}))
 
-    }
-
-    toggleItem = id => {
-        const item = this.state.list.find(item => item.id === id);
-        const newItem = {...item, completed: !item.completed};
-
-        updateContact(newItem).then(() => {
-            this.setState({
-                list: this.state.list.map(item => item.id !== id ? item : newItem)
-            })
-        })
     }
 
     deleteItem = (id) => {
@@ -43,7 +31,7 @@ class Contacts extends Component {
     render() {
         return (
             <>
-                <ContactTable list={this.state.list} onToggle={this.toggleItem} onDelete={this.deleteItem}/>
+                <ContactTable list={this.state.list} onDelete={this.deleteItem}/>
                 <ShowForm onSave={this.createItem}/>
             </>
         );
