@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import ContactTable from "./ContactTable";
+import ContactForm from "./ContactForm";
 
 class ShowForm extends Component {
     state = {
-        show: true
+        show: false
     }
 
     toggleForm = () => {
-        this.setState({ show: !this.state.show });
+        this.setState({show: !this.state.show});
     }
 
     render() {
@@ -16,7 +16,10 @@ class ShowForm extends Component {
                 <button onClick={this.toggleForm}>{this.state.show ? 'Hide' : 'Show'} form</button>
                 {
                     this.state.show
-                        ? <ContactForm onSave={this.props.onSave}/>
+                        ? <ContactForm
+                            onSave={this.props.onSave}
+                            onHide={this.toggleForm}
+                        />
                         : null
                 }
             </div>
