@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import ContactListItem from "./ContactListItem";
+import {
+    Table,
+    Thead,
+    Tbody,
+    Tr,
+    Th,
+} from "@chakra-ui/react"
 
 class ContactTable extends Component {
     render() {
         return (
-            <table>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Phone</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
+            <Table variant='striped' colorScheme='teal' size='sm'>
+                <Thead>
+                <Tr>
+                    <Th>Name</Th>
+                    <Th>Surname</Th>
+                    <Th>Phone</Th>
+                    <Th>Action</Th>
+                </Tr>
+                </Thead>
+                <Tbody>
                 {this.props.list.map(item => (
                     <ContactListItem
                         key={item.id}
@@ -21,8 +28,8 @@ class ContactTable extends Component {
                         onToggle={this.props.onToggle}
                         onDelete={this.props.onDelete}/>
                 ))}
-                </tbody>
-            </table>
+                </Tbody>
+            </Table>
         );
     }
 }

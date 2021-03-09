@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Td, Tr } from "@chakra-ui/react"
 
 export default class ContactListItem extends Component {
     onItemClick = (e) => {
@@ -15,12 +16,12 @@ export default class ContactListItem extends Component {
         const {item} = this.props;
 
         return (
-            <tr>
-                <td>{item.name}</td>
-                <td>{item.surname}</td>
-                <td>{item.phone}</td>
-                <td onClick={this.onDeleteItemClick}>X</td>
-            </tr>
+            <Tr>
+                <Td>{item.name}</Td>
+                <Td>{item.surname}</Td>
+                <Td>{item.phone}</Td>
+                <Td onClick={this.onDeleteItemClick}>X</Td>
+            </Tr>
         );
     }
 }

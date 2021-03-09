@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 class ContactForm extends Component {
     state = {
@@ -13,10 +14,13 @@ class ContactForm extends Component {
         e.preventDefault();
 
         this.props.onSave(this.state.todo);
-        this.setState({todo: {
-                title: '',
-                priority: ''
-            }});
+        this.setState({
+            todo: {
+                name: '',
+                surname: '',
+                phone: '',
+            }
+        });
     }
 
     onInputChange = (e) => {
@@ -26,26 +30,36 @@ class ContactForm extends Component {
     render() {
         return (
             <form onSubmit={this.onFormSubmit}>
-                <input
-                    type="text"
-                    name="name"
-                    value={this.state.todo.title}
-                    onChange={this.onInputChange}
-                />
-                <input
-                    type="text"
-                    name="surname"
-                    value={this.state.todo.priority}
-                    onChange={this.onInputChange}
-                />
-                <input
-                    type="text"
-                    name="phone"
-                    value={this.state.todo.priority}
-                    onChange={this.onInputChange}
-                />
-                <button>Save</button>
-                <button type="reset" onClick={this.props.onHide}>Cancel</button>
+                <FormControl isRequired>
+                    <FormLabel>Name</FormLabel>
+                    <Input
+                        type="text"
+                        name="name"
+                        value={this.state.todo.name}
+                        onChange={this.onInputChange}
+                    />
+                    <FormLabel>Surname</FormLabel>
+                    <Input
+                        type="text"
+                        name="surname"
+                        value={this.state.todo.surname}
+                        onChange={this.onInputChange}
+                    />
+                    <FormLabel>Phone</FormLabel>
+                    <Input
+                        type="text"
+                        name="phone"
+                        value={this.state.todo.phone}
+                        onChange={this.onInputChange}
+                    />
+                    <Button
+                        colorScheme="teal"
+                        size="sm"
+                        type="submit">
+                        Save
+                    </Button>
+                    <button type="reset" onClick={this.props.onHide}>Cancel</button>
+                </FormControl>
             </form>
         );
     }
