@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import TodoList from "./TodoList";
-import TodoForm from "./TodoForm";
-import { createTodo, deleteTodo, getTodos, updateTodo } from "../services/todosService";
+import ContactTable from "./ContactTable";
+import { createTodo, deleteTodo, getTodos, updateTodo } from "../services/contactsService";
+import ShowForm from "./ShowForm";
 
 
-class Todos extends Component {
+class Contacts extends Component {
     state = {
         list: []
     }
@@ -49,11 +49,11 @@ class Todos extends Component {
     render() {
         return (
             <>
-                <TodoList list={this.state.list} onToggle={this.toggleItem} onDelete={this.deleteItem}/>
-                <TodoForm onSave={this.createItem}/>
+                <ContactTable list={this.state.list} onToggle={this.toggleItem} onDelete={this.deleteItem}/>
+                <ShowForm onSave={this.createItem}/>
             </>
         );
     }
 }
 
-export default Todos;
+export default Contacts;

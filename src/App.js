@@ -1,8 +1,8 @@
 import './App.css';
-import Todos from "./modules/todos/components/Todos";
+import Contacts from "./modules/contacts/components/Contacts";
 
 function App() {
-    return <Todos />;
+    return <Contacts />;
 }
 
 export default App;
