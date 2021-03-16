@@ -1,29 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class TodoListItem extends Component {
-    onItemClick = () => {
-        this.props.onToggle(this.props.item.id);
-    };
+export default function TodoListItem({ item, onDelete, onToggle }) {
+    function onItemClick() {
+        onToggle(item.id);
+    }
 
-    onDeleteBtnClick = (e) => {
+    function onDeleteBtnClick(e) {
         e.stopPropagation();
 
-        this.props.onDelete(this.props.item.id);
-    };
-
-    render() {
-        const { item } = this.props;
-
-        return (
-            <li onClick={this.onItemClick} style={getItemStyle(item)}>
-                {item.title}
-                <span onClick={this.onDeleteBtnClick}>X</span>
-            </li>
-        );
+        onDelete(item.id);
     }
+
+    return (
+        <li onClick={onItemClick} style={getItemStyle(item)}>
+            {item.title}
+            <span onClick={onDeleteBtnClick}>X</span>
+        </li>
+    );
 }
 
-function getItemStyle({ completed }) {
+
+function getItemStyle({completed}) {
     return {
         cursor: 'pointer',
         backgroundColor: completed ? 'green' : 'yellow',

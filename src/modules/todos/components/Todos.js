@@ -1,61 +1,49 @@
-import React, { Component } from 'react';
-import {
-    createTodo,
-    deleteTodo,
-    getTodos,
-    updateTodo,
-} from '../services/todosService';
-import TodoForm from './TodoForm';
+import React, { useEffect, useState } from 'react';
+import { createTodo, deleteTodo, getTodos, updateTodo } from "../services/todosService";
 import TodoList from './TodoList';
+import TodoForm from "./TodoForm";
 
-export default class Todos extends Component {
-    state = {
-        list: [],
-    };
+export default function Todos() {
+    const [list, setList] = useState([]);
 
-    componentDidMount() {
-        getTodos().then((list) => this.setState({ list }));
-    }
+    useEffect(() => {
+        getTodos().then(setList);
+    }, [])
 
-    toggleItem = (id) => {
-        const item = this.state.list.find((l) => l.id === id);
-        const newItem = { ...item, completed: !item.completed };
+    function toggleItem(id) {
+        const item = list.find((l) => l.id === id);
+        const newItem = {...item, completed: !item.completed};
 
         updateTodo(newItem).then(() => {
-            this.setState({
-                list: this.state.list.map((item) =>
+            setList(list.map((item) =>
                     item.id !== id ? item : newItem
                 ),
-            });
+            );
         });
-    };
+    }
 
-    deleteItem = (id) => {
+    function deleteItem(id) {
         deleteTodo(id);
 
-        this.setState({
-            list: this.state.list.filter((item) => item.id !== id),
-        });
-    };
+        setList(list.filter((item) => item.id !== id))
+    }
 
-    createItem = (newItem) => {
+    function createItem(newItem) {
         newItem.completed = false;
 
         createTodo(newItem).then((data) => {
-            this.setState({ list: [...this.state.list, data] });
+            setList([...list, data]);
         });
-    };
-
-    render() {
-        return (
-            <>
-                <TodoList
-                    list={this.state.list}
-                    onToggle={this.toggleItem}
-                    onDelete={this.deleteItem}
-                />
-                <TodoForm onSave={this.createItem} />
-            </>
-        );
     }
+
+    return (
+        <>
+            <TodoList
+                list={list}
+                onToggle={toggleItem}
+                onDelete={deleteItem}
+            />
+            <TodoForm onSave={createItem}/>
+        </>
+    )
 }
