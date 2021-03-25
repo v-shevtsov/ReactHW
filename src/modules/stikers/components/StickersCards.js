@@ -1,7 +1,7 @@
 import { Wrap } from "@chakra-ui/react"
 import StickerItem from "./StickerItem";
 
-export default function StickerCards({ stickers, onDelete, onSave }) {
+export default function StickerCards({stickers, onDelete, onSave}) {
 
     return (
         <Wrap p='5'>

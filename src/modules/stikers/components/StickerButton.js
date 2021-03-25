@@ -13,7 +13,7 @@ export default function StickerButton({onClick}) {
             colorScheme="blue"
             m='3'
         >
-            Button
+            Add sticker
         </Button>
     )
 }

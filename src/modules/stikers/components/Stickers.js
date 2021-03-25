@@ -1,29 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import { Center, Spinner } from "@chakra-ui/react"
 import { createSticker, deleteSticker, getStickers, updateSticker } from "../services/stickersService";
 import Header from "./Header";
 import StickerCards from "./StickersCards";
 
 export default function Stickers() {
     const [stickers, setStickers] = useState([]);
+    const [status, setStatus] = useState('pending');
 
     useEffect(() => {
-        getStickers().then(data => {
-            setStickers(data);
-        })
+        getStickers()
+            .then(data => {
+                setStatus('success');
+                setStickers(data);
+            })
+            .catch(error => setStatus('error'));
     }, []);
 
     function deleteStickerItem(id) {
         deleteSticker(id).then(() => {
             setStickers(stickers.filter(item => item.id !== id));
         })
-
     }
 
-    function onSave(newSticker) {
+    function changeSticker(newSticker) {
         updateSticker(newSticker).then(() => {
             setStickers(stickers.map(sticker =>
                 sticker.id === newSticker.id ? newSticker : sticker
-            ));
+            ))
         })
     }
 
@@ -36,11 +40,24 @@ export default function Stickers() {
     return (
         <>
             <Header onCreate={createNewSticker}/>
-            <StickerCards
-                stickers={stickers}
-                onDelete={deleteStickerItem}
-                onSave={onSave}
-            />
+            {status === 'pending' ? (
+                <Center mt='5'>
+                    <Spinner
+                        thickness="4px"
+                        speed="0.65s"
+                        emptyColor="gray.200"
+                        color="blue.500"
+                        size="xl"
+                    />
+                </Center>
+            ) : status === 'success' ? (
+                <StickerCards
+                    stickers={stickers}
+                    onDelete={deleteStickerItem}
+                    onSave={changeSticker}
+                />
+            ) : (<p>Sorry! We have some problem with your request. Please try again</p>)
+            }
         </>
     )
 }
