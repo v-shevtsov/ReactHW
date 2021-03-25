@@ -3,19 +3,12 @@ import { Center, Spinner } from "@chakra-ui/react"
 import { createSticker, deleteSticker, getStickers, updateSticker } from "../services/stickersService";
 import Header from "./Header";
 import StickerCards from "./StickersCards";
+import { useAsync } from "../hooks";
 
 export default function Stickers() {
-    const [stickers, setStickers] = useState([]);
-    const [status, setStatus] = useState('pending');
+    const {status, data: stickers, setData: setStickers, run} = useAsync(() => getStickers())
+    useEffect(run, [])
 
-    useEffect(() => {
-        getStickers()
-            .then(data => {
-                setStatus('success');
-                setStickers(data);
-            })
-            .catch(error => setStatus('error'));
-    }, []);
 
     function deleteStickerItem(id) {
         deleteSticker(id).then(() => {
