@@ -1,34 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Center, Spinner } from "@chakra-ui/react"
-import { createSticker, deleteSticker, getStickers, updateSticker } from "../services/stickersService";
 import Header from "./Header";
 import StickerCards from "./StickersCards";
-import { useAsync } from "../hooks";
+import { useStickers } from "./hooks";
 
 export default function Stickers() {
-    const {status, data: stickers, setData: setStickers, run} = useAsync(() => getStickers())
-    useEffect(run, [])
-
-
-    function deleteStickerItem(id) {
-        deleteSticker(id).then(() => {
-            setStickers(stickers.filter(item => item.id !== id));
-        })
-    }
-
-    function changeSticker(newSticker) {
-        updateSticker(newSticker).then(() => {
-            setStickers(stickers.map(sticker =>
-                sticker.id === newSticker.id ? newSticker : sticker
-            ))
-        })
-    }
-
-    function createNewSticker(newSticker) {
-        createSticker(newSticker).then((data) => {
-            setStickers([...stickers, data]);
-        })
-    }
+    const {status, stickers, deleteStickerItem, changeSticker, createNewSticker} = useStickers();
 
     return (
         <>
