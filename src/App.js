@@ -1,6 +1,6 @@
 import './App.css';
 import { ChakraProvider } from "@chakra-ui/react";
-import Stickers from "./modules/stikers/components/Stickers/Stickers";
+import Stickers from "./modules/stikers/components/Stickers";
 
 function App() {
     return (
