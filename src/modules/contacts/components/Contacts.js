@@ -1,41 +1,41 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import ContactTable from "./ContactTable";
 import { createContact, deleteContact, getContacts } from "../services/contactsService";
 import ShowForm from "./ShowForm";
 
-class Contacts extends Component {
-    state = {
-        list: []
-    }
+function Contacts() {
+    const [list, setList] = useState([]);
 
-    componentDidMount() {
-        getContacts().then(list => this.setState({list}))
+    useEffect(() => {
+        getContacts().then(list => setList(list));
+    }, [])
 
-    }
-
-    deleteItem = (id) => {
+    function deleteItem(id) {
         deleteContact(id);
 
-        this.setState({
-            list: this.state.list.filter(item => item.id !== id)
-        })
+        setList(list.filter(
+            item => item.id !== id
+        ));
     }
 
-    createItem = (newItem) => {
+    function createItem(newItem) {
         createContact(newItem).then(data => {
-            this.setState({list: [...this.state.list, data]})
+            setList(() => [...list, data])
         })
 
     }
 
-    render() {
-        return (
-            <>
-                <ContactTable list={this.state.list} onDelete={this.deleteItem}/>
-                <ShowForm onSave={this.createItem}/>
-            </>
-        );
-    }
+    return (
+        <>
+            <ContactTable
+                list={list}
+                onDelete={deleteItem}
+            />
+            <ShowForm
+                onSave={createItem}
+            />
+        </>
+    );
 }
 
 export default Contacts;

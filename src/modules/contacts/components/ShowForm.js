@@ -1,37 +1,31 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import ContactForm from "./ContactForm";
 import { Button } from "@chakra-ui/react";
 
-class ShowForm extends Component {
-    state = {
-        show: false
+export default function ShowForm({onSave}) {
+    const [state, setState] = useState({show: false})
+
+    function toggleForm() {
+        setState({show: !state.show});
     }
 
-    toggleForm = () => {
-        this.setState({show: !this.state.show});
-    }
-
-    render() {
-        return (
-            <div>
-                <Button
-                    onClick={this.toggleForm}
-                    colorScheme="blue"
-                    size="sm"
-                >
-                    {this.state.show ? 'Hide' : 'Show'} form
-                </Button>
-                {
-                    this.state.show
-                        ? <ContactForm
-                            onSave={this.props.onSave}
-                            onHide={this.toggleForm}
-                        />
-                        : null
-                }
-            </div>
-        );
-    }
+    return (
+        <div>
+            <Button
+                onClick={toggleForm}
+                colorScheme="blue"
+                size="sm"
+            >
+                {state.show ? 'Hide' : 'Show'} form
+            </Button>
+            {state.show
+                ? <ContactForm
+                    onSave={onSave}
+                    onHide={toggleForm}
+                />
+                : null
+            }
+        </div>
+    );
 }
 
-export default ShowForm;
