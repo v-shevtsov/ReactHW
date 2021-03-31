@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ContactTable from "./ContactTable";
-import { createContact, deleteContact, getContacts, updateContact } from "../services/contactsService";
+import { createContact, deleteContact, getContacts } from "../services/contactsService";
 import ShowForm from "./ShowForm";
 
 class Contacts extends Component {
