@@ -1,35 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ContactTable from "./ContactTable";
-import { createContact, deleteContact, getContacts } from "../services/contactsService";
+import useContacts from "../hooks/useContacts";
 import ShowForm from "./ShowForm";
 
 function Contacts() {
-    const [list, setList] = useState([]);
-
-    useEffect(() => {
-        getContacts().then(list => setList(list));
-    }, [])
-
-    function deleteItem(id) {
-        deleteContact(id);
-
-        setList(list.filter(
-            item => item.id !== id
-        ));
-    }
-
-    function createItem(newItem) {
-        createContact(newItem).then(data => {
-            setList(() => [...list, data])
-        })
-
-    }
+    const {
+        contacts,
+        deleteContact,
+        createItem
+    } = useContacts();
 
     return (
         <>
             <ContactTable
-                list={list}
-                onDelete={deleteItem}
+                list={contacts}
+                onDelete={deleteContact}
             />
             <ShowForm
                 onSave={createItem}
