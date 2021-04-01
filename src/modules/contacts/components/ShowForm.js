@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import ContactForm from "./ContactForm";
 import { Button } from "@chakra-ui/react";
+import { useTheme } from "../hooks/useContacts";
 
 export default function ShowForm({onSave}) {
     const [state, setState] = useState({show: false})
+    const {theme} = useTheme();
 
     function toggleForm() {
         setState({show: !state.show});
@@ -13,7 +15,7 @@ export default function ShowForm({onSave}) {
         <div>
             <Button
                 onClick={toggleForm}
-                colorScheme="blue"
+                colorScheme={theme}
                 size="sm"
             >
                 {state.show ? 'Hide' : 'Show'} form

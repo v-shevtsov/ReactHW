@@ -1,5 +1,10 @@
 import api from "../contactsApi";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { themeContext } from "../contects/themeContext";
+
+export function useTheme() {
+    return useContext(themeContext);
+}
 
 export default function useContacts() {
     const [contacts, setContacts] = useState([]);
@@ -19,9 +24,10 @@ export default function useContacts() {
     }
 
     function createItem(newItem) {
-        api.post('', newItem).then(({data}) =>
-            setContacts([...contacts, data])
-        );
+        api.post('', newItem)
+            .then(({data}) =>
+                setContacts([...contacts, data])
+            );
     }
 
     return {

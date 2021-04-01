@@ -2,6 +2,7 @@ import React from 'react';
 import ContactTable from "./ContactTable";
 import useContacts from "../hooks/useContacts";
 import ShowForm from "./ShowForm";
+import ChangeTheme from "./ChangeTheme";
 
 function Contacts() {
     const {
@@ -12,6 +13,7 @@ function Contacts() {
 
     return (
         <>
+            <ChangeTheme/>
             <ContactTable
                 list={contacts}
                 onDelete={deleteContact}
