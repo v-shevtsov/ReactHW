@@ -2,8 +2,6 @@ import UserItem from "./UserItem";
 import { Table, Tbody, Th, Thead, Tr, } from "@chakra-ui/react"
 
 export default function UsersList({users}) {
-    console.log(users)
-
     return (
         <Table variant='striped' colorScheme='green'>
             <Thead>
