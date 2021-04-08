@@ -1,13 +1,13 @@
-import { Center, ListItem, UnorderedList } from "@chakra-ui/react";
+import { ListItem } from "@chakra-ui/react";
+import List from "../../ui/components/List";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
 
     return (
-        <Center mt='5'>
-            <UnorderedList>
-                <ListItem><a href='/users'>Users</a></ListItem>
-                <ListItem><a href='/albums'>Albums</a></ListItem>
-            </UnorderedList>
-        </Center>
+        <List>
+            <ListItem><Link to='/users'>Users</Link></ListItem>
+            <ListItem><Link to='/albums'>Albums</Link></ListItem>
+        </List>
     )
 }

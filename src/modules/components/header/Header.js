@@ -1,5 +1,6 @@
 import React from 'react';
 import { Center, Flex, Spacer } from "@chakra-ui/react"
+import { Link } from "react-router-dom";
 
 export default function Header() {
 
@@ -7,11 +8,11 @@ export default function Header() {
         <header>
             <Center mt='5'>
                 <Flex w='50%'>
-                    <a href='/'>Dashboard</a>
+                    <Link to='/'>Dashboard</Link>
                     <Spacer/>
-                    <a href='/users'>Users</a>
+                    <Link to='/users'>Users</Link>
                     <Spacer/>
-                    <a href='/albums'>Albums</a>
+                    <Link to='/albums'>Albums</Link>
                 </Flex>
             </Center>
         </header>
