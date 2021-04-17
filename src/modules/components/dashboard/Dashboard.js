@@ -1,13 +1,18 @@
-import { ListItem } from "@chakra-ui/react";
-import List from "../../ui/components/List";
-import { Link } from "react-router-dom";
+import ListItem from "@material-ui/core/ListItem";
+import CustomRouterLink from "../../ui/components/CustomRouterLink";
+import List from "@material-ui/core/List";
+import Grid from "@material-ui/core/Grid";
 
 export default function Dashboard() {
 
     return (
-        <List>
-            <ListItem><Link to='/users'>Users</Link></ListItem>
-            <ListItem><Link to='/albums'>Albums</Link></ListItem>
-        </List>
+        <Grid container justify='center'>
+            <Grid item>
+                <List>
+                    <ListItem><CustomRouterLink to='/users'>Users</CustomRouterLink></ListItem>
+                    <ListItem><CustomRouterLink to='/albums'>Albums</CustomRouterLink></ListItem>
+                </List>
+            </Grid>
+        </Grid>
     )
 }

@@ -1,12 +1,12 @@
-import { Td, Tr, } from "@chakra-ui/react"
+import TableCell from "@material-ui/core/TableCell";
 
-export default function UserItem({user}) {
+export default function UserItem({user, StyledTableRow}) {
     return (
-        <Tr>
-            <Td>{user.name}</Td>
-            <Td>{user.username}</Td>
-            <Td>{user.email}</Td>
-            <Td>{user.address.city}</Td>
-        </Tr>
+        <StyledTableRow>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.username}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>{user.address.city}</TableCell>
+        </StyledTableRow>
     )
 }

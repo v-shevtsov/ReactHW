@@ -1,20 +1,31 @@
 import React from 'react';
-import { Center, Flex, Spacer } from "@chakra-ui/react"
-import { Link } from "react-router-dom";
+import CustomRouterLink from "../../ui/components/CustomRouterLink";
+import Grid from "@material-ui/core/Grid";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 
 export default function Header() {
-
     return (
-        <header>
-            <Center mt='5'>
-                <Flex w='50%'>
-                    <Link to='/'>Dashboard</Link>
-                    <Spacer/>
-                    <Link to='/users'>Users</Link>
-                    <Spacer/>
-                    <Link to='/albums'>Albums</Link>
-                </Flex>
-            </Center>
-        </header>
-    )
+        <>
+            <AppBar>
+                <Toolbar>
+                    <Grid
+                        container
+                        justify='space-evenly'
+                    >
+                        <Grid item>
+                            <CustomRouterLink to='/dashboard'>Dashboard</CustomRouterLink>
+                        </Grid>
+                        <Grid item>
+                            <CustomRouterLink to='/users'>Users</CustomRouterLink>
+                        </Grid>
+                        <Grid item>
+                            <CustomRouterLink to='/albums'>Albums</CustomRouterLink>
+                        </Grid>
+                    </Grid>
+                </Toolbar>
+            </AppBar>
+            <Toolbar/>
+        </>
+    );
 }

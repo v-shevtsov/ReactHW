@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { DEFAULT_URL } from "../../Constans";
+import { DEFAULT_URL } from "../../constans";
 
 export default function useList(URI) {
     const [value, setValue] = useState([]);

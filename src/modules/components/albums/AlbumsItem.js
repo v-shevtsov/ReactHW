@@ -1,10 +1,15 @@
-import { ListItem } from "@chakra-ui/react";
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import AdjustIcon from '@material-ui/icons/Adjust';
 
 export default function AlbumsItem({item}) {
     return (
-           <ListItem>
-               {item.title}
-           </ListItem>
+        <ListItem>
+            <ListItemIcon>
+                <AdjustIcon fontSize="small"/>
+            </ListItemIcon>
+            {item.title}
+        </ListItem>
     );
 }
 
