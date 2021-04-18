@@ -6,6 +6,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
+import { Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 export default function UsersList({users}) {
 
@@ -24,6 +26,10 @@ export default function UsersList({users}) {
         },
     }))(TableRow);
 
+    function showForm() {
+        console.log('Show Form')
+    }
+
     return (
         <Table>
             <TableHead>
@@ -31,7 +37,11 @@ export default function UsersList({users}) {
                     <StyledTableCell>Name</StyledTableCell>
                     <StyledTableCell>Phone</StyledTableCell>
                     <StyledTableCell>Email</StyledTableCell>
-                    <StyledTableCell><ControlPointIcon /></StyledTableCell>
+                    <StyledTableCell>
+                        <Link to=''>
+                            <ControlPointIcon onClick={showForm}/>
+                        </Link>
+                    </StyledTableCell>
                 </TableRow>
             </TableHead>
             <TableBody>

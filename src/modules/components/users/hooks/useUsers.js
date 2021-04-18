@@ -3,10 +3,16 @@ import { useEffect, useState } from "react";
 
 export default function useUsers() {
     const [users, setUsers] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect((() => {
-        api.get()
+        setIsLoading(true);
+        setError(null);
+        api.get('')
             .then(({data}) => setUsers(data))
+            .catch(error => setError(error))
+            .finally(() => setIsLoading(false));
     }), []);
 
 
@@ -18,6 +24,11 @@ export default function useUsers() {
     return {
         users,
         setUsers,
-        createUser
+        isLoading,
+        error,
+        createUser,
     }
 }
+
+
+
