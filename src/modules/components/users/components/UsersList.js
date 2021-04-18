@@ -5,6 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
+import ControlPointIcon from '@material-ui/icons/ControlPoint';
 
 export default function UsersList({users}) {
 
@@ -28,9 +29,9 @@ export default function UsersList({users}) {
             <TableHead>
                 <TableRow>
                     <StyledTableCell>Name</StyledTableCell>
-                    <StyledTableCell>Username</StyledTableCell>
+                    <StyledTableCell>Phone</StyledTableCell>
                     <StyledTableCell>Email</StyledTableCell>
-                    <StyledTableCell>City</StyledTableCell>
+                    <StyledTableCell><ControlPointIcon /></StyledTableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
