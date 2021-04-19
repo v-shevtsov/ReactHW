@@ -1,23 +1,16 @@
-import UsersList from "./UsersList";
-import Grid from "@material-ui/core/Grid";
-import useUsers from "../hooks/useUsers";
-import Loading from "../../loading/Loading";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
+import UsersListPage from './UsersListPage';
+import UsersForm from './UsersForm'
+import useUsers from '../hooks/useUsers';
 
 export default function Users() {
-    // const [users] = useList('users');
-    const {users, createUser, isLoading, error} = useUsers();
+    const {path} = useRouteMatch();
 
     return (
-        isLoading
-            ? <Loading/>
-            : error
-            ? <h2 style={{textAlign: "center"}}>Something happened! Please, refresh page!</h2>
-            : (
-                <Grid container justify='center'>
-                    <UsersList
-                        users={users}
-                    />
-                </Grid>
-            )
+        <Switch>
+            <Route path={path + '/'} exact component={UsersListPage} />
+            <Route path={path + '/form'} exact component={UsersForm} />
+            <Route path={path + '/:id'}  component={UsersForm} />
+        </Switch>
     )
 }

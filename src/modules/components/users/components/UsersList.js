@@ -1,33 +1,33 @@
-import UserItem from "./UserItem";
+import UserItem from './UserItem';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
-import { Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import {Link, useRouteMatch} from 'react-router-dom';
 
 export default function UsersList({users}) {
+    const {path} = useRouteMatch();
 
     const StyledTableCell = withStyles((theme) => ({
         head: {
             backgroundColor: theme.palette.background.default,
-            color: theme.palette.common.black,
+            color: theme.palette.common.black
         }
     }))(TableCell);
 
     const StyledTableRow = withStyles((theme) => ({
         root: {
             '&:nth-of-type(odd)': {
-                backgroundColor: theme.palette.action.hover,
-            },
-        },
+                backgroundColor: theme.palette.action.hover
+            }
+        }
     }))(TableRow);
 
     function showForm() {
-        console.log('Show Form')
+        console.log('Show Form');
     }
 
     return (
@@ -38,8 +38,8 @@ export default function UsersList({users}) {
                     <StyledTableCell>Phone</StyledTableCell>
                     <StyledTableCell>Email</StyledTableCell>
                     <StyledTableCell>
-                        <Link to=''>
-                            <ControlPointIcon onClick={showForm}/>
+                        <Link to={path + 'form'} >
+                            <ControlPointIcon onClick={showForm} />
                         </Link>
                     </StyledTableCell>
                 </TableRow>
@@ -55,5 +55,5 @@ export default function UsersList({users}) {
                 }
             </TableBody>
         </Table>
-    )
+    );
 }

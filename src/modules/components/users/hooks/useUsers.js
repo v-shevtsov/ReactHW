@@ -7,8 +7,8 @@ export default function useUsers() {
     const [error, setError] = useState(null);
 
     useEffect((() => {
-        setIsLoading(true);
         setError(null);
+        setIsLoading(true);
         api.get('')
             .then(({data}) => setUsers(data))
             .catch(error => setError(error))

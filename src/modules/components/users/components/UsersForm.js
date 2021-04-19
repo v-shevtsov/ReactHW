@@ -1,5 +1,6 @@
 import { Button, TextField } from "@material-ui/core";
 import { useState } from "react";
+import {getCurrentUser} from '../../../services/users';
 
 export default function UsersForm() {
     const [user, setUser] = useState({
@@ -8,9 +9,11 @@ export default function UsersForm() {
         email: '',
     });
 
+
+
     const formStyle = {
         display: 'flex',
-        'flex-direction': 'column',
+        flexDirection: 'column',
         margin: '0 auto',
         width: '50%',
     }
@@ -20,7 +23,9 @@ export default function UsersForm() {
     }
 
     function onSave() {
-        console.log('save')
+        console.log('save');
+        // console.dir(getCurrentUser(37));
+
     }
 
     function onCancel() {
