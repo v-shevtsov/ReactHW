@@ -1,16 +1,17 @@
 import { Button, TextField } from "@material-ui/core";
-import { useState } from "react";
-import {getCurrentUser} from '../../../services/users';
+import Alert from '@material-ui/lab/Alert';
+import { useEffect, useState } from "react";
+import { useUsers } from "../hooks/hooks";
+import { useHistory, useParams } from "react-router-dom";
+import api from "../usersAPI";
 
 export default function UsersForm() {
-    const [user, setUser] = useState({
-        name: '',
-        phone: '',
-        email: '',
-    });
-
-
-
+    const [success, setSuccess] = useState(false);
+    const [user, setUser] = useState({name: '', phone: '', email: ''});
+    const [edit, setEdit] = useState(false);
+    const {createUser, editUser} = useUsers();
+    const {goBack} = useHistory();
+    const {id} = useParams();
     const formStyle = {
         display: 'flex',
         flexDirection: 'column',
@@ -18,20 +19,44 @@ export default function UsersForm() {
         width: '50%',
     }
 
+    useEffect(() => {
+        async function getCurrentUser(id) {
+            if (!id) {
+                setEdit(false);
+                return;
+            }
+
+            const {name, phone, email} = await api.get('', {params: {id}})
+                .then(({data}) => data[0]);
+
+            setUser({name, phone, email});
+            setEdit(true);
+        }
+
+        getCurrentUser(id);
+    }, [id])
+
+
     function onInputChange(e) {
         setUser({...user, [e.target.name]: e.target.value})
     }
 
     function onSave() {
-        console.log('save');
-        // console.dir(getCurrentUser(37));
-
+        if (!edit) {
+            createUser(user);
+            showSuccess();
+        } else {
+            editUser({...user, id});
+            showSuccess();
+        }
     }
 
-    function onCancel() {
-        console.log('cancel')
+    function showSuccess() {
+        setSuccess(true);
+        setTimeout(() => {
+            setSuccess(false);
+        }, 3000);
     }
-
 
     return (
         <form id='users-form' noValidate autoComplete="off" style={formStyle}>
@@ -63,11 +88,14 @@ export default function UsersForm() {
                 <Button variant="contained" color="primary" size='small' style={{marginRight: 10}} onClick={onSave}>
                     Save
                 </Button>
-                <Button variant="contained" color="secondary" size='small' onClick={onCancel}>
+                <Button variant="contained" color="secondary" size='small' onClick={goBack}>
                     Cancel
                 </Button>
             </div>
+            {success
+                ? <Alert severity="success">Data sent to the server!</Alert>
+                : null
+            }
         </form>
     )
 }
-

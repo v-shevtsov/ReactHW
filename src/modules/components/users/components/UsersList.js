@@ -4,11 +4,11 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import { Link, useRouteMatch } from 'react-router-dom';
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
-import {Link, useRouteMatch} from 'react-router-dom';
 
-export default function UsersList({users}) {
+export default function UsersList({users, onDelete}) {
     const {path} = useRouteMatch();
 
     const StyledTableCell = withStyles((theme) => ({
@@ -26,10 +26,6 @@ export default function UsersList({users}) {
         }
     }))(TableRow);
 
-    function showForm() {
-        console.log('Show Form');
-    }
-
     return (
         <Table>
             <TableHead>
@@ -38,8 +34,8 @@ export default function UsersList({users}) {
                     <StyledTableCell>Phone</StyledTableCell>
                     <StyledTableCell>Email</StyledTableCell>
                     <StyledTableCell>
-                        <Link to={path + 'form'} >
-                            <ControlPointIcon onClick={showForm} />
+                        <Link to={path + 'form'}>
+                            <ControlPointIcon/>
                         </Link>
                     </StyledTableCell>
                 </TableRow>
@@ -50,6 +46,7 @@ export default function UsersList({users}) {
                         key={user.id}
                         user={user}
                         StyledTableRow={StyledTableRow}
+                        onDelete={onDelete}
                     />
                 ))
                 }

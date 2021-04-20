@@ -1,11 +1,10 @@
 import UsersList from "./UsersList";
 import Grid from "@material-ui/core/Grid";
-import useUsers from "../hooks/useUsers";
+import { useUsers } from "../hooks/hooks";
 import Loading from "../../loading/Loading";
 
 export default function UsersListPage() {
-    // const [users] = useList('users');
-    const {users, isLoading, error} = useUsers();
+    const {users, isLoading, error, deleteUser} = useUsers();
 
     return (
         isLoading
@@ -16,6 +15,7 @@ export default function UsersListPage() {
                 <Grid container justify='center'>
                     <UsersList
                         users={users}
+                        onDelete={deleteUser}
                     />
                 </Grid>
             )

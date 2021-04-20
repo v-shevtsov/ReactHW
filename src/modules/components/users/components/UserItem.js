@@ -1,13 +1,14 @@
 import TableCell from '@material-ui/core/TableCell';
 import CreateIcon from '@material-ui/icons/Create';
-import {Link, useRouteMatch} from 'react-router-dom';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { Button } from "@material-ui/core";
 
-export default function UserItem({user, StyledTableRow}) {
+export default function UserItem({user, StyledTableRow, onDelete}) {
     const {url} = useRouteMatch();
 
-    function onChange() {
-
-        console.log(user);
+    function onDeleteItem() {
+        onDelete(user.id)
     }
 
     return (
@@ -19,9 +20,11 @@ export default function UserItem({user, StyledTableRow}) {
                 <Link to={url + '/' + user.id}>
                     <CreateIcon
                         style={{cursor: 'pointer'}}
-                        onClick={onChange}
                     />
                 </Link>
+                <Button>
+                    <DeleteIcon onClick={onDeleteItem}/>
+                </Button>
             </TableCell>
         </StyledTableRow>
     );
