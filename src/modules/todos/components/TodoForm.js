@@ -10,10 +10,10 @@ function TodoForm({ list, dispatch }) {
         e.preventDefault();
         const arrayId = list.map((item) => item.id);
         const maxId = Math.max(...arrayId) + 1 + '';
-        const newItem = {id: maxId, title: e.target.value, isDone: false};
+        const newItem = {id: maxId, title: newTodo.title, isDone: false};
         const newTodoList = [...list, newItem]
-        console.log(newTodoList);
-        dispatch(setTodo({type: 'set', payload: newTodoList}));
+        console.log(newTodo);
+        dispatch(setTodo(newTodoList));
         setNewTodo({title: ''});
     }
 
