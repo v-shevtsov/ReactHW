@@ -1,57 +1,37 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { createTodo, deleteTodo, getTodos, updateTodo } from "../services/todosService";
+import React, {useEffect, useMemo} from 'react';
+import {getTodos} from '../services/todosService';
 import TodoList from './TodoList';
-import TodoForm from "./TodoForm";
-import TodosFilter from "./TodosFilter";
-import { useLocalStorage } from "./hooks";
+import TodoForm from './TodoForm';
+import {useLocalStorage} from './hooks';
+import Header from './Header';
+import {connect} from 'react-redux';
+import {setStatusDone, setStatusLoading, setTodo} from '../store/actions/actions';
 
-export default function Todos() {
-    const [list, setList] = useState([]);
-    const [filter, setFilter] = useLocalStorage('filter', 'all');
+function Todos({list, status, filter, dispatch}) {
     const [search, setSearch] = useLocalStorage('search');
-    const [status, setStatus] = useState(['Idle']);
+
+    useEffect(() => {
+        getTodos().then((data) => {
+            dispatch(setTodo(data));
+        });
+    }, []);
+
 
     useEffect(() => {
         localStorage.setItem('filter', filter);
-    }, [filter])
+    }, [filter]);
 
     useEffect(() => {
         localStorage.setItem('search', search);
-    }, [search])
+    }, [search]);
 
     useEffect(() => {
-        setStatus('Loading');
+        dispatch(setStatusLoading());
         getTodos(search).then((data) => {
-            setStatus('Done');
-            setList(data);
+            dispatch(setStatusDone());
+            dispatch(setTodo(data));
         });
-    }, [search])
-
-    function toggleItem(id) {
-        const item = list.find((l) => l.id === id);
-        const newItem = {...item, completed: !item.completed};
-
-        updateTodo(newItem).then(() => {
-            setList(list.map((item) =>
-                    item.id !== id ? item : newItem
-                ),
-            );
-        });
-    }
-
-    function deleteItem(id) {
-        deleteTodo(id);
-
-        setList(list.filter((item) => item.id !== id))
-    }
-
-    function createItem(newItem) {
-        newItem.completed = false;
-
-        createTodo(newItem).then((data) => {
-            setList([...list, data]);
-        });
-    }
+    }, [search]);
 
     const filteredList = useMemo(() => {
         if (filter !== 'all') {
@@ -62,24 +42,28 @@ export default function Todos() {
         } else {
             return list;
         }
-    }, [filter, list])
+    }, [filter, list]);
 
     return (
         <>
-            <TodosFilter
-                filter={filter}
-                setFilter={setFilter}
+            <Header
+                // filter={filter}
+                // setFilter={setFilter}
                 search={search}
                 setSearch={setSearch}
             />
             {status === 'Loading' ?
                 'loading...' : status === 'Done' ?
-                <TodoList
-                    list={filteredList}
-                    onToggle={toggleItem}
-                    onDelete={deleteItem}
-                /> : null}
-            <TodoForm onSave={createItem}/>
+                    <TodoList
+                        list={filteredList}
+                    /> : null}
+            <TodoForm />
         </>
-    )
+    );
 }
+
+function mapStateToProps(state) {
+    return {list: state.list, status: state.status, filter: state.filter};
+}
+
+export default connect(mapStateToProps)(Todos);

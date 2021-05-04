@@ -1,4 +1,5 @@
 import React from 'react';
+import ListItem from '@material-ui/core/ListItem';
 
 export default function TodoListItem({ item, onDelete, onToggle }) {
     function onItemClick() {
@@ -12,10 +13,10 @@ export default function TodoListItem({ item, onDelete, onToggle }) {
     }
 
     return (
-        <li onClick={onItemClick} style={getItemStyle(item)}>
+        <ListItem button onClick={onItemClick} style={getItemStyle(item)}>
             {item.title}
             <span onClick={onDeleteBtnClick}>X</span>
-        </li>
+        </ListItem>
     );
 }
 

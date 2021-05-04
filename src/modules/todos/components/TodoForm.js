@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import {connect} from 'react-redux';
 
-export default function TodoForm({ onSave }) {
+function TodoForm({ onSave }) {
     const [todo, setTodo] = useState({title: ''});
 
 
     function onFormSubmit(e) {
         e.preventDefault();
 
-        onSave(todo);
+        // onSave(todo);
+
         setTodo({title: ''});
     }
 
@@ -28,3 +30,9 @@ export default function TodoForm({ onSave }) {
     );
 
 }
+
+function mapStateToProps(state) {
+    return { list: state.list };
+}
+
+export default connect(mapStateToProps)(TodoForm)
