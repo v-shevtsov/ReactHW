@@ -1,5 +1,4 @@
 export function setTodo(data) {
-    console.log('Actions: ', data);
     return { type: 'set', payload: data }
 }
 
@@ -20,6 +19,5 @@ export function setStatusDone() {
 }
 
 export function changeFilter(value) {
-    console.log(value);
     return { type: 'change-filter', payload: value}
 }

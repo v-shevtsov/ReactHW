@@ -5,7 +5,7 @@ import TodoForm from './TodoForm';
 import {useLocalStorage} from './hooks';
 import Header from './Header';
 import {connect} from 'react-redux';
-import {setStatusDone, setStatusLoading, setTodo} from '../store/actions/actions';
+import {deleteTodo, setStatusDone, setStatusLoading, setTodo, toggleTodo} from '../store/actions/actions';
 
 function Todos({list, status, filter, dispatch}) {
     const [search, setSearch] = useLocalStorage('search');
@@ -15,7 +15,6 @@ function Todos({list, status, filter, dispatch}) {
             dispatch(setTodo(data));
         });
     }, []);
-
 
     useEffect(() => {
         localStorage.setItem('filter', filter);
@@ -33,12 +32,22 @@ function Todos({list, status, filter, dispatch}) {
         });
     }, [search]);
 
+    function onDelete(id) {
+        dispatch(deleteTodo(id));
+    }
+
+    function onToggle(id) {
+        const item = list.find((item) => item.id === id);
+        const newItem = {...item, isDone: !item.isDone};
+        dispatch(toggleTodo(newItem));
+    }
+
     const filteredList = useMemo(() => {
         if (filter !== 'all') {
             return list.filter(
                 item =>
-                    (filter === 'done' && item.completed) ||
-                    (filter === 'notdone' && !item.completed));
+                    (filter === 'done' && item.isDone) ||
+                    (filter === 'notdone' && !item.isDone));
         } else {
             return list;
         }
@@ -47,8 +56,6 @@ function Todos({list, status, filter, dispatch}) {
     return (
         <>
             <Header
-                // filter={filter}
-                // setFilter={setFilter}
                 search={search}
                 setSearch={setSearch}
             />
@@ -56,6 +63,8 @@ function Todos({list, status, filter, dispatch}) {
                 'loading...' : status === 'Done' ?
                     <TodoList
                         list={filteredList}
+                        onDelete={onDelete}
+                        onToggle={onToggle}
                     /> : null}
             <TodoForm />
         </>

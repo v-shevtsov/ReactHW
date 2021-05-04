@@ -21,9 +21,9 @@ export default function TodoListItem({ item, onDelete, onToggle }) {
 }
 
 
-function getItemStyle({completed}) {
+function getItemStyle({isDone}) {
     return {
         cursor: 'pointer',
-        backgroundColor: completed ? 'green' : 'yellow',
+        backgroundColor: isDone ? 'green' : 'yellow',
     };
 }
