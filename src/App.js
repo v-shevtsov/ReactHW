@@ -1,22 +1,24 @@
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import Header from './modules/components/header/Header';
-import Albums from './modules/components/albums/Albums';
-import Dashboard from './modules/components/dashboard/Dashboard';
-import ErrorPage from './modules/components/errorPage/ErrorPage';
-import Users from './modules/components/users/components/Users';
+import { Container } from "@material-ui/core";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import UsersContainer from "./components/UsersContainer";
+import { fetchUsers } from "./store/actions/actions";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ErrorPage from "./common/components/ErrorPage";
 
+store.dispatch(fetchUsers());
 
 function App() {
     return (
         <Router>
-            <Header />
-            <Switch>
-                <Route path="/" exact />
-                <Route path="/dashboard" component={Dashboard} />
-                <Route path="/users" component={Users} />
-                <Route path="/albums" component={Albums} />
-                <Route path="*" component={ErrorPage} />
-            </Switch>
+            <Container maxWidth='lg'>
+                <Provider store={store}>
+                    <Switch>
+                        <Route path='/users' component={UsersContainer}/>
+                        {/*<Route path='*' components={ErrorPage}/>*/}
+                    </Switch>
+                </Provider>
+            </Container>
         </Router>
     );
 }
